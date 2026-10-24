@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import Login from "./Login";
-
+import Marketplace from "./Marketplace";
 const API_URL = 'http://localhost:5000';
 
 function App() {
@@ -271,7 +271,14 @@ const [forecastLoading, setForecastLoading] = useState(false);
   });
 };
 if (window.location.pathname === "/login") {
-  return <Login />;
+  return (
+    <Login
+      onBackHome={() => {
+        window.history.pushState({}, "", "/");
+        window.location.reload();
+      }}
+    />
+  );
 }
 if (!loggedInUser) {
   window.location.href = "/login";
@@ -778,6 +785,7 @@ if (!loggedInUser) {
           </article>
         </section>
       </main>
+      <Marketplace />
 
       <footer>
         <p>© 2026 AgriTech | Empowering Farmers Through Technology</p>

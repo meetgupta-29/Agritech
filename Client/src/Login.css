@@ -85,3 +85,25 @@
   color: #2f6b38;
   text-decoration: none;
 }
+.auth-home {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 14px;
+  padding: 11px 16px;
+  border: 1px solid #d5e3d5;
+  border-radius: 8px;
+  background: #f1f7ef;
+  color: #245b35;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.auth-home:hover {
+  background: #e0efdc;
+  color: #174727;
+}

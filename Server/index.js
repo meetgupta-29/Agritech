@@ -329,6 +329,28 @@ async function startServer() {
     await mongoose.connect(process.env.MONGODB_URI);
 
     console.log("MongoDB connected successfully!");
+    const marketplaceProducts = [
+  { id: 1, name: "Premium Wheat Seeds", category: "Seeds", price: 850, unit: "5 kg", icon: "🌾", description: "Quality seeds for wheat cultivation." },
+  { id: 2, name: "Hybrid Maize Seeds", category: "Seeds", price: 1200, unit: "5 kg", icon: "🌽", description: "Hybrid seeds for maize farming." },
+  { id: 3, name: "Organic Compost", category: "Fertilizers", price: 450, unit: "25 kg", icon: "🌱", description: "Organic compost for soil improvement." },
+  { id: 4, name: "NPK Plant Nutrients", category: "Fertilizers", price: 750, unit: "5 kg", icon: "🧪", description: "Plant nutrients for balanced crop growth." },
+  { id: 5, name: "Garden Sprayer", category: "Crop Protection", price: 650, unit: "1 piece", icon: "💧", description: "Sprayer for farm treatments." },
+  { id: 6, name: "Hand Cultivator", category: "Tools & Equipment", price: 350, unit: "1 piece", icon: "🛠️", description: "Tool for loosening soil." },
+  { id: 7, name: "Mini Power Tiller", category: "Machinery", price: 18500, unit: "1 unit", icon: "🚜", description: "Compact soil preparation equipment." },
+  { id: 8, name: "Drip Irrigation Kit", category: "Irrigation", price: 2200, unit: "1 kit", icon: "🚿", description: "Water-saving irrigation kit." },
+  { id: 9, name: "Premium Rice", category: "Grains", price: 1600, unit: "25 kg", icon: "🍚", description: "Sample rice grain listing." },
+  { id: 10, name: "Fresh Tomatoes", category: "Fruits & Vegetables", price: 40, unit: "1 kg", icon: "🍅", description: "Sample price per kilogram." },
+  { id: 11, name: "Fresh Mangoes", category: "Fruits & Vegetables", price: 100, unit: "1 kg", icon: "🥭", description: "Sample seasonal fruit listing." },
+  { id: 12, name: "Organic Neem Cake", category: "Organic Products", price: 550, unit: "10 kg", icon: "🍃", description: "Organic soil amendment." },
+];
+
+app.get("/api/products", (req, res) => {
+  res.json({
+    success: true,
+    count: marketplaceProducts.length,
+    products: marketplaceProducts,
+  });
+});
 
     app.listen(PORT, () => {
       console.log(`AgriTech server running at http://localhost:${PORT}`);
