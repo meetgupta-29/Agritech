@@ -1,9 +1,18 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import Login from "./Login";
 
 const API_URL = 'http://localhost:5000';
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState(() => {
+  try {
+    const savedUser = localStorage.getItem("agritech_user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  } catch {
+    return null;
+  }
+});
   const [apiStatus, setApiStatus] = useState('Connecting...');
   const [crops, setCrops] = useState([]);
   const [cropError, setCropError] = useState('');
@@ -261,6 +270,13 @@ const [forecastLoading, setForecastLoading] = useState(false);
     nutrientMessage
   });
 };
+if (window.location.pathname === "/login") {
+  return <Login />;
+}
+if (!loggedInUser) {
+  window.location.href = "/login";
+  return null;
+}
   useEffect(() => {
     // Check backend health
     fetch(`${API_URL}/api/health`)
@@ -288,7 +304,6 @@ const [forecastLoading, setForecastLoading] = useState(false);
     // Load default city weather
     fetchWeather('Indore');
   }, []);
-
   return (
     <div className="app">
       {/* Navigation */}
@@ -305,12 +320,30 @@ const [forecastLoading, setForecastLoading] = useState(false);
           <a href="#services">Services</a>
         </div>
 
-        <button
-          className="login-btn"
-          onClick={() => alert('Login feature coming soon!')}
-        >
-          Login
-        </button>
+        {loggedInUser ? (
+  <div className="user-menu">
+    <span>Welcome, {loggedInUser.name}</span>
+    <button
+  className="login-btn"
+  onClick={() => {
+    localStorage.removeItem("agritech_user");
+    setLoggedInUser(null);
+    window.location.href = "/login";
+  }}
+>
+  Logout
+</button>
+  </div>
+) : (
+  <button
+    className="login-btn"
+    onClick={() => {
+      window.location.href = "/login";
+    }}
+  >
+    Login
+  </button>
+)}
       </nav>
 
       <p className="backend-status">
